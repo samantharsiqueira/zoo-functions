@@ -33,7 +33,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants(4)).toBe('Parâmetro inválido, é necessário uma string');
   });
 
-  it('Ao passar um parâmetro inválido, deve retornar null' , () => {
+  it('Ao passar um parâmetro inválido, deve retornar null', () => {
     expect(handlerElephants('XYZZ')).toBeNull();
   });
 });
