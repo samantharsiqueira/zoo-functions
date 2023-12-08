@@ -1,30 +1,32 @@
 const data = require('../data/zoo_data');
 
-const zoo = data.species;
-
 const countAnimals = (animal) => {
-  // Se parametro for vazio, retorna um objeto com todos os animais.
+  // Objeto para armazenar a soma dos animais por espécie
+  const especies = {};
+  // Para cada animal vamos somar ele no array de animais que moram no zoo
+  data.species
+    .forEach((animals) => {
+      especies[animals.name] = animals.residents.length;
+    });
+  // se não encontrar o animal passado no parametro, retorna o objeto acima;
   if (!animal) {
-    return Object.keys(zoo).reduce((animal, species) => {
-      result[species] = zoo.length;
-      return animal;
-    }, {});
+    return especies;
   }
+  // Desestruturar o objeto pra achar as propriedade species e sex dos animais;
+  const { species, sex } = animal;
 
-  // Se o parâmetro `species` for fornecido, retornar a contagem para essa espécie
-  if (animal.species && zoo[animal.species]) {
-    // Se a chave `sex` também for fornecida, filtrar por sexo
-    if (animal.sex) {
-      return zoo[animal.species].reduce((count, animal) => {
-        if (animal.sex === params.sex) {
-          return count + 1;
-        }
-        return count;
-      }, 0);
-    }
-    // Se apenas a espécie for fornecida, retornar a contagem total
-    return zoo[animal.species].length;
+  // Encontra a espécie;
+  const findSpecies = data.species
+    .find((element) => element.name === species);
+
+  // Se não tiver nenhum dado sobre sexo, retorna o objeto com todos os animais do zoo;
+  if (!sex) {
+    return findSpecies.residents.length;
   }
+  // Filtra os animais pelo sexo e retorna a contagem;
+  const residentesFilter = findSpecies.residents
+    .filter((resident) => resident.sex === sex);
+  return residentesFilter.length;
 };
 module.exports = countAnimals;
 
